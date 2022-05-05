@@ -32,11 +32,16 @@
             // $count++;                         
             $data[1] = sanearString($data[1]);
             $consulta['full_name'] = sanearString($consulta['full_name']);
+            $sub_str1 = str_split($data[1],5);
+            $sub_str2 = str_split($consulta['full_name'],5);
+
+            similar_text(strtoupper($sub_str1[0]), strtoupper($sub_str2[0]), $pct_parcial);
+
             similar_text(strtoupper($data[1]), strtoupper($consulta['full_name']), $pct);
             
             if ($pct > $umbral) {
                 $count++;
-                $coincidencias[$count] = ['estudiante', $pct, $data[2], $data[1]];
+                $coincidencias[$count] = ['estudiante', $pct, $pct_parcial, $data[2], $data[1]];
             }
         }
         $allData[$consulta['full_name']] = $coincidencias;
@@ -50,11 +55,17 @@
             // $count++;                         
             $data[1] = sanearString($data[1]);
             $consulta['full_name'] = sanearString($consulta['full_name']);
+
+            $sub_str1 = str_split($data[1],5);
+            $sub_str2 = str_split($consulta['full_name'],5);
+
+            similar_text(strtoupper($sub_str1[0]), strtoupper($sub_str2[0]), $pct_parcial);
+
             similar_text(strtoupper($data[1]), strtoupper($consulta['full_name']), $pct);
             
             if ($pct > $umbral) {
                 $count++;
-                $coincidencias[$count] = ['trabajador', $pct, $data[2], $data[1]];
+                $coincidencias[$count] = ['trabajador', $pct, $pct_parcial, $data[2], $data[1]];
             }
         }
         $allData[$consulta['full_name']] = $coincidencias;
@@ -63,7 +74,7 @@
     }
 
     $json = json_encode($allData);
-    $bytes = file_put_contents('allData.json',$json);
+    $bytes = file_put_contents('newAllData.json',$json);
 
 
     require_once './close_cnx.php';
@@ -120,8 +131,8 @@
         );
 
         $cadena = str_replace(
-            array('  ','   '),
-            array(' ',' '),
+            array(' ','  ','   '),
+            array('','',''),
             $cadena
         );
     
