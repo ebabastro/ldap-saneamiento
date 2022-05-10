@@ -4,7 +4,7 @@ require_once "generarCSV.php";
 require_once "username_generator.php";
 
 //Path de los nuevos ingresos
-$nuevoIngresoPath = "../estudiantes.csv";
+$nuevoIngresoPath = "./e_estudiantes.csv";
 //Path de los usuarios ya existentes
 $oldUserPath = "../UltimoReport.csv";
 
@@ -27,7 +27,7 @@ $newUsernames = [];
 //Array para guardar la informacion con los nuevos usuarios, incluye username
 $newUsers = [];
 
-for ($i=1; $i < $sizeNuevoIngreso-1; $i++) { 
+for ($i=0; $i < $sizeNuevoIngreso-1; $i++) { 
     
     $option1 = generator_1($nuevoIngresoData[$i][1],$nuevoIngresoData[$i][2],$nuevoIngresoData[$i][3]);
     $option2 = generator_2($nuevoIngresoData[$i][1],$nuevoIngresoData[$i][2]);
